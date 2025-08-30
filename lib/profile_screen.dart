@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:happy_code/profile_edit_screen.dart';
 import 'router.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -7,8 +8,26 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Config Screen', style: TextStyle(fontSize: 24)),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Profile'),
+        backgroundColor: Colors.blue,
+      ),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () {
+            // 通常の画面遷移（Navigator.push）で編集画面へ
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder:
+                    (context) => const ProfileEditScreen(title: 'ProfileEdit'),
+              ),
+            );
+          },
+          child: const Text('Edit Profile'),
+        ),
+      ),
     );
   }
 }
