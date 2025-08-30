@@ -1,7 +1,184 @@
 import 'package:flutter/material.dart';
+import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+
 
 void main() {
   runApp(const MyApp());
+}
+
+LineChartData sampleData() {
+  return LineChartData(
+    lineTouchData: LineTouchData(enabled: false),
+    lineBarsData: [
+      LineChartBarData(
+        spots: [
+          FlSpot(0, 0),
+          FlSpot(1, 5),
+          FlSpot(2, 10),
+          FlSpot(3, 5),
+          FlSpot(4, 20),
+          FlSpot(5, 15),
+          FlSpot(6, 25),
+          FlSpot(7, 10),
+          FlSpot(8, 15),
+          FlSpot(9, 25),
+          FlSpot(10, 28),
+          FlSpot(11, 15),
+        ],
+        isCurved: true,
+        color: Colors.black,
+        barWidth: 5,
+      ),
+    ],
+    minY: 0,
+    maxY: 30,
+    titlesData: LineTitles.getTitleData(),
+    gridData: FlGridData(
+      show: true,
+      drawHorizontalLine: true,
+      getDrawingVerticalLine: (value) {
+        return FlLine(
+          color: const Color(0xff37434d),
+          strokeWidth: 1,
+        );
+      },
+      getDrawingHorizontalLine: (value) {
+        return FlLine(
+          color: const Color(0xff37434d),
+          strokeWidth: 1,
+        );
+      },
+    ),
+  );
+}
+PieChartData sampleData2() => PieChartData(
+      startDegreeOffset: 270,
+      sections: [
+        PieChartSectionData(
+          borderSide: BorderSide(color: Colors.black, width: 1),
+          color: Colors.blue[300], // 色を指定
+          value: 8,
+          titlePositionPercentageOffset: 0.7,
+          titleStyle: const TextStyle(fontSize: 10, color: Colors.white),
+          radius: 80, // 半径は少し小さめに
+        ),
+        PieChartSectionData(
+          borderSide: BorderSide(color: Colors.black, width: 1),
+          color: Colors.green[400],
+          value: 1,
+          titlePositionPercentageOffset: 0.8,
+          titleStyle: const TextStyle(fontSize: 10, color: Colors.white),
+          radius: 80,
+        ),
+        PieChartSectionData(
+          borderSide: BorderSide(color: Colors.black, width: 1),
+          color: Colors.orange[400],
+          value: 9,
+          titlePositionPercentageOffset: 0.5,
+          titleStyle: const TextStyle(fontSize: 10, color: Colors.white),
+          radius: 80,
+        ),
+      ],
+      sectionsSpace: 2,       // 各セクションの間隔
+      centerSpaceRadius: 50,  // これでドーナツ型になる
+    );
+
+
+
+List<Color> gradientColors = [
+  const Color(0xff23b6e6),
+  const Color(0xff02d39a),
+];
+
+class LineTitles {
+  static getTitleData() {
+    return FlTitlesData(
+      show: true,
+      bottomTitles: AxisTitles(
+        sideTitles: SideTitles(
+          showTitles: true,
+          reservedSize: 22,
+          getTitlesWidget: (value, meta) {
+            String text;
+            switch (value.toInt()) {
+              case 0:
+                text = 'Jan';
+                break;
+              case 1:
+                text = 'Feb';
+                break;
+              case 2:
+                text = 'Mar';
+                break;
+              case 3:
+                text = 'Apr';
+                break;
+              case 4:
+                text = 'May';
+                break;
+              case 5:
+                text = 'Jun';
+                break;
+              case 6:
+                text = 'Jul';
+                break;
+              case 7:
+                text = 'Aug';
+                break;
+              case 8:
+                text = 'Sep';
+                break;
+              case 9:
+                text = 'Oct';
+                break;
+              case 10:
+                text = 'Nov';
+                break;
+              case 11:
+                text = 'Dec';
+                break;
+              default:
+                text = '';
+            }
+            return Padding(
+              padding: const EdgeInsets.only(top: 4.0),
+              child: Text(text),
+            );
+          },
+        ),
+      ),
+      leftTitles: AxisTitles(
+        sideTitles: SideTitles(
+          showTitles: true,
+          reservedSize: 28,
+          getTitlesWidget: (value, meta) {
+            String text;
+            switch (value.toInt()) {
+              case 0:
+                text = '0';
+                break;
+              case 10:
+                text = '10';
+                break;
+              case 20:
+                text = '20';
+                break;
+              case 30:
+                text = '30';
+                break;
+              default:
+                text = '';
+            }
+            return Padding(
+              padding: const EdgeInsets.only(right: 12.0),
+              child: Text(text),
+            );
+          },
+        ),
+      ),
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -13,24 +190,18 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
+        
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale("en"),
+        const Locale("ja"),
+      ],
     );
   }
 }
@@ -51,72 +222,103 @@ class MyHomePage extends StatefulWidget {
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
+  
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  
+  DateTime selectedDate = DateTime.now(); // 初期値を今日の日付にする
 
-  void _incrementCounter() {
+  Future<void> _selectDate() async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      locale: const Locale("ja"),
+      initialDate: selectedDate,
+      firstDate: DateTime(2025),
+      lastDate: DateTime(2101),
+    );
+
+  if (!mounted) return; //
+    if (picked != null && picked != selectedDate) {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+    selectedDate = picked;
+  });
   }
+  }
+
+  double _currentSliderValue = 20;
+  double _currentDiscreteSliderValue = 60;
+  bool year2023 = true;
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
+    body: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              OutlinedButton(
+                onPressed: _selectDate,
+                child: Text(
+                  '${selectedDate.year}/${selectedDate.month}/${selectedDate.day}',
+                ),
+              ),
+              Text(' のサウナ記録'),
+            ],
+          ),
+  
+  // Row(children: [
+  //   PieChart(sampleData2()),
+  // ],),
+  Flexible(
+    child: Row(
+      children: [
+        Flexible(child: PieChart(sampleData2())),
+        Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+          children:[
+            Text('最低心拍数'),
+            Text('最高心拍数'),
           ],
         ),
+      ],
+    ),
+  ),
+  Row(
+    mainAxisAlignment: MainAxisAlignment.center,
+    children:[
+      Text('心地良さ　'),
+    Slider(
+              value: _currentSliderValue,
+              max: 100,
+              onChanged: (double value) {
+                setState(() {
+                  _currentSliderValue = value;
+                });
+              },
+            ),
+            Text('${_currentSliderValue.toStringAsFixed(0)}％'),
+    ],
+  ),
+  const SizedBox(
+    width: 300,
+    child: TextField(
+      obscureText: true,
+      decoration: InputDecoration(border: OutlineInputBorder(), labelText: 'メモ'),
+    ),
+  ),
+  // You can add more widgets here if needed
+  // LineChart(sampleData()),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+    ),
     );
   }
 }
