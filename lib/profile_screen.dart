@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:happy_code/profile_edit_screen.dart';
-import 'router.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
