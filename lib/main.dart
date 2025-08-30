@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:happy_code/home_screen.dart';
 import 'package:happy_code/map_screen.dart';
 import 'package:happy_code/profile_screen.dart';
+import 'package:happy_code/test_watch_connection.dart';
 import 'router.dart';
 
 void main() {
@@ -13,11 +14,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: Routerrr,
-      title: 'BottomNavigation + GoRouter',
-      theme: ThemeData(primarySwatch: Colors.blue),
-    );
+    return MaterialApp.router(routerConfig: Routerrr, title: 'BottomNavigation + GoRouter', theme: ThemeData(primarySwatch: Colors.blue));
   }
 }
 
@@ -31,11 +28,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
-  final List<Widget> _screens = [
-    const HomeScreen(),
-    const MapScreen(),
-    const ProfileScreen(),
-  ];
+  final List<Widget> _screens = [const HomeScreen(), const MapScreen(), const ProfileScreen()];
 
   @override
   Widget build(BuildContext context) {

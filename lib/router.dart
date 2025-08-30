@@ -9,10 +9,6 @@ final GoRouter Routerrr = GoRouter(
       path: '/',
       builder: (context, state) => const MainScreen(), // BottomNavigationBar を持つ画面
     ),
-    GoRoute(path: '/configs', builder: (BuildContext context, GoRouterState state) => ConfigScreen(title: 'config')),
-    GoRoute(path: '/map', builder: (BuildContext context, GoRouterState state) => MapScreen(title: 'map')),
-    GoRoute(path: '/start', builder: (BuildContext context, GoRouterState state) => StartScreen(title: 'start')),
-    GoRoute(path: '/test/watch_connection', builder: (BuildContext context, GoRouterState state) => TestWatchConnection()),
   ],
   // GoRoute(
   //   path: '/',
