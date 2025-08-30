@@ -5,10 +5,37 @@ import 'package:happy_code/test_watch_connection.dart';
 
 final GoRouter Routerrr = GoRouter(
   routes: <GoRoute>[
-    GoRoute(path: '/', builder: (BuildContext context, GoRouterState state) => HomeScreen(title: 'home')),
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const MainScreen(), // BottomNavigationBar を持つ画面
+    ),
     GoRoute(path: '/configs', builder: (BuildContext context, GoRouterState state) => ConfigScreen(title: 'config')),
     GoRoute(path: '/map', builder: (BuildContext context, GoRouterState state) => MapScreen(title: 'map')),
     GoRoute(path: '/start', builder: (BuildContext context, GoRouterState state) => StartScreen(title: 'start')),
     GoRoute(path: '/test/watch_connection', builder: (BuildContext context, GoRouterState state) => TestWatchConnection()),
   ],
+  // GoRoute(
+  //   path: '/',
+  //   builder:
+  //       (BuildContext context, GoRouterState state) =>
+  //           HomeScreen(title: 'home'),
+  // ),
+  // GoRoute(
+  //   path: '/configs',
+  //   builder:
+  //       (BuildContext context, GoRouterState state) =>
+  //           ConfigScreen(title: 'config'),
+  // ),
+  // GoRoute(
+  //   path: '/map',
+  //   builder:
+  //       (BuildContext context, GoRouterState state) =>
+  //           MapScreen(title: 'map'),
+  // ),
+  // GoRoute(
+  //   path: '/start',
+  //   builder:
+  //       (BuildContext context, GoRouterState state) =>
+  //           StartScreen(title: 'start'),
+  // ),
 );
