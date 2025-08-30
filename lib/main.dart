@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'package:happy_code/home_screen.dart';
+import 'package:happy_code/map_screen.dart';
+import 'package:happy_code/profile_screen.dart';
+import 'router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -38,58 +42,48 @@ LineChartData sampleData() {
       show: true,
       drawHorizontalLine: true,
       getDrawingVerticalLine: (value) {
-        return FlLine(
-          color: const Color(0xff37434d),
-          strokeWidth: 1,
-        );
+        return FlLine(color: const Color(0xff37434d), strokeWidth: 1);
       },
       getDrawingHorizontalLine: (value) {
-        return FlLine(
-          color: const Color(0xff37434d),
-          strokeWidth: 1,
-        );
+        return FlLine(color: const Color(0xff37434d), strokeWidth: 1);
       },
     ),
   );
 }
+
 PieChartData sampleData2() => PieChartData(
-      startDegreeOffset: 270,
-      sections: [
-        PieChartSectionData(
-          borderSide: BorderSide(color: Colors.black, width: 1),
-          color: Colors.blue[300], // 色を指定
-          value: 8,
-          titlePositionPercentageOffset: 0.7,
-          titleStyle: const TextStyle(fontSize: 10, color: Colors.white),
-          radius: 80, // 半径は少し小さめに
-        ),
-        PieChartSectionData(
-          borderSide: BorderSide(color: Colors.black, width: 1),
-          color: Colors.green[400],
-          value: 1,
-          titlePositionPercentageOffset: 0.8,
-          titleStyle: const TextStyle(fontSize: 10, color: Colors.white),
-          radius: 80,
-        ),
-        PieChartSectionData(
-          borderSide: BorderSide(color: Colors.black, width: 1),
-          color: Colors.orange[400],
-          value: 9,
-          titlePositionPercentageOffset: 0.5,
-          titleStyle: const TextStyle(fontSize: 10, color: Colors.white),
-          radius: 80,
-        ),
-      ],
-      sectionsSpace: 2,       // 各セクションの間隔
-      centerSpaceRadius: 50,  // これでドーナツ型になる
-    );
+  startDegreeOffset: 270,
+  sections: [
+    PieChartSectionData(
+      borderSide: BorderSide(color: Colors.black, width: 1),
+      color: Colors.blue[300], // 色を指定
+      value: 8,
+      titlePositionPercentageOffset: 0.7,
+      titleStyle: const TextStyle(fontSize: 10, color: Colors.white),
+      radius: 80, // 半径は少し小さめに
+    ),
+    PieChartSectionData(
+      borderSide: BorderSide(color: Colors.black, width: 1),
+      color: Colors.green[400],
+      value: 1,
+      titlePositionPercentageOffset: 0.8,
+      titleStyle: const TextStyle(fontSize: 10, color: Colors.white),
+      radius: 80,
+    ),
+    PieChartSectionData(
+      borderSide: BorderSide(color: Colors.black, width: 1),
+      color: Colors.orange[400],
+      value: 9,
+      titlePositionPercentageOffset: 0.5,
+      titleStyle: const TextStyle(fontSize: 10, color: Colors.white),
+      radius: 80,
+    ),
+  ],
+  sectionsSpace: 2, // 各セクションの間隔
+  centerSpaceRadius: 50, // これでドーナツ型になる
+);
 
-
-
-List<Color> gradientColors = [
-  const Color(0xff23b6e6),
-  const Color(0xff02d39a),
-];
+List<Color> gradientColors = [const Color(0xff23b6e6), const Color(0xff02d39a)];
 
 class LineTitles {
   static getTitleData() {
@@ -181,31 +175,6 @@ class LineTitles {
   }
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ],
-      supportedLocales: [
-        const Locale("en"),
-        const Locale("ja"),
-      ],
-    );
-  }
-}
-
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
@@ -222,11 +191,34 @@ class MyHomePage extends StatefulWidget {
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
-  
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      routerConfig: Routerrr,
+      title: 'BottomNavigation + GoRouter',
+      theme: ThemeData(primarySwatch: Colors.blue),
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
+      supportedLocales: [const Locale("en"), const Locale("ja")],
+    );
+  }
+}
+
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  
   DateTime selectedDate = DateTime.now(); // 初期値を今日の日付にする
 
   Future<void> _selectDate() async {
@@ -238,12 +230,12 @@ class _MyHomePageState extends State<MyHomePage> {
       lastDate: DateTime(2101),
     );
 
-  if (!mounted) return; //
+    if (!mounted) return; //
     if (picked != null && picked != selectedDate) {
-    setState(() {
-    selectedDate = picked;
-  });
-  }
+      setState(() {
+        selectedDate = picked;
+      });
+    }
   }
 
   double _currentSliderValue = 20;
@@ -257,68 +249,314 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-    body: Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              OutlinedButton(
-                onPressed: _selectDate,
-                child: Text(
-                  '${selectedDate.year}/${selectedDate.month}/${selectedDate.day}',
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                OutlinedButton(
+                  onPressed: _selectDate,
+                  child: Text(
+                    '${selectedDate.year}/${selectedDate.month}/${selectedDate.day}',
+                  ),
+                ),
+                Text(' のサウナ記録'),
+              ],
+            ),
+
+            // Row(children: [
+            //   PieChart(sampleData2()),
+            // ],),
+            Flexible(
+              child: Row(
+                children: [
+                  Flexible(child: PieChart(sampleData2())),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [Text('最低心拍数'), Text('最高心拍数')],
+                  ),
+                ],
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('心地良さ　'),
+                Slider(
+                  value: _currentSliderValue,
+                  max: 100,
+                  onChanged: (double value) {
+                    setState(() {
+                      _currentSliderValue = value;
+                    });
+                  },
+                ),
+                Text('${_currentSliderValue.toStringAsFixed(0)}％'),
+              ],
+            ),
+            const SizedBox(
+              width: 300,
+              child: TextField(
+                obscureText: true,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'メモ',
                 ),
               ),
-              Text(' のサウナ記録'),
-            ],
-          ),
-  
-  // Row(children: [
-  //   PieChart(sampleData2()),
-  // ],),
-  Flexible(
-    child: Row(
-      children: [
-        Flexible(child: PieChart(sampleData2())),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children:[
-            Text('最低心拍数'),
-            Text('最高心拍数'),
+            ),
+            // You can add more widgets here if needed
+            // LineChart(sampleData()),
           ],
         ),
-      ],
-    ),
-  ),
-  Row(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children:[
-      Text('心地良さ　'),
-    Slider(
-              value: _currentSliderValue,
-              max: 100,
-              onChanged: (double value) {
-                setState(() {
-                  _currentSliderValue = value;
-                });
-              },
-            ),
-            Text('${_currentSliderValue.toStringAsFixed(0)}％'),
-    ],
-  ),
-  const SizedBox(
-    width: 300,
-    child: TextField(
-      obscureText: true,
-      decoration: InputDecoration(border: OutlineInputBorder(), labelText: 'メモ'),
-    ),
-  ),
-  // You can add more widgets here if needed
-  // LineChart(sampleData()),
-        ],
       ),
-    ),
     );
   }
 }
+
+class _MainScreenState extends State<MainScreen> {
+  int _currentIndex = 0;
+  DateTime selectedDate = DateTime.now(); // 初期値を今日の日付にする
+
+  final List<Widget> _screens = [
+    const HomeScreen(),
+    const MapScreen(),
+    const ProfileScreen(),
+  ];
+  Future<void> _selectDate() async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      locale: const Locale("ja"),
+      initialDate: selectedDate,
+      firstDate: DateTime(2025),
+      lastDate: DateTime(2101),
+    );
+
+    if (!mounted) return; //
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
+
+  double _currentSliderValue = 20;
+  double _currentDiscreteSliderValue = 60;
+  bool year2023 = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        // title: Text(widget.title),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        onTap: (index) => setState(() => _currentIndex = index),
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.map), label: 'Map'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
+        ],
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                OutlinedButton(
+                  onPressed: _selectDate,
+                  child: Text(
+                    '${selectedDate.year}/${selectedDate.month}/${selectedDate.day}',
+                  ),
+                ),
+                Text(' のサウナ記録'),
+              ],
+            ),
+
+            // Row(children: [
+            //   PieChart(sampleData2()),
+            // ],),
+            Flexible(
+              child: Row(
+                children: [
+                  Flexible(child: PieChart(sampleData2())),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [Text('最低心拍数'), Text('最高心拍数')],
+                  ),
+                ],
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('心地良さ　'),
+                Slider(
+                  value: _currentSliderValue,
+                  max: 100,
+                  onChanged: (double value) {
+                    setState(() {
+                      _currentSliderValue = value;
+                    });
+                  },
+                ),
+                Text('${_currentSliderValue.toStringAsFixed(0)}％'),
+              ],
+            ),
+            const SizedBox(
+              width: 300,
+              child: TextField(
+                obscureText: true,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'メモ',
+                ),
+              ),
+            ),
+            // You can add more widgets here if needed
+            // LineChart(sampleData()),
+          ],
+        ),
+      ),
+
+      // body: IndexedStack(index: _currentIndex, children: _screens),
+    );
+  }
+}
+
+// class HomeScreen extends StatelessWidget {
+//   const HomeScreen({super.key, required this.title});
+//   final String title;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+//         title: Text(title),
+//       ),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: <Widget>[
+//             // Map 画面に遷移するボタン
+//             ElevatedButton(
+//               onPressed: () {
+//                 context.go('/map');
+//               },
+//               child: const Text('Go to Map Screen'),
+//             ),
+//             const SizedBox(height: 16), // ボタン間の余白
+//             // Config 画面に遷移するボタン
+//             ElevatedButton(
+//               onPressed: () {
+//                 context.go('/configs');
+//               },
+//               child: const Text('Go to Config Screen'),
+//             ),
+//             const SizedBox(height: 16), // ボタン間の余白
+//             // Start 画面に遷移するボタン
+//             ElevatedButton(
+//               onPressed: () {
+//                 context.go('/start');
+//               },
+//               child: const Text('Go to Start Screen'),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class ConfigScreen extends StatelessWidget {
+//   const ConfigScreen({super.key, required this.title});
+//   final String title;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+//         title: Text(title),
+//       ),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: <Widget>[
+//             ElevatedButton(
+//               onPressed: () {
+//                 // GoRouter で /details に遷移
+//                 context.go('/');
+//               },
+//               child: const Text('Go to Home Screen'),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class MapScreen extends StatelessWidget {
+//   const MapScreen({super.key, required this.title});
+//   final String title;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+//         title: Text(title),
+//       ),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: <Widget>[
+//             ElevatedButton(
+//               onPressed: () {
+//                 // GoRouter で /details に遷移
+//                 context.go('/');
+//               },
+//               child: const Text('Go to Home Screen'),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class StartScreen extends StatelessWidget {
+//   const StartScreen({super.key, required this.title});
+//   final String title;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+//         title: Text(title),
+//       ),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: <Widget>[
+//             ElevatedButton(
+//               onPressed: () {
+//                 // GoRouter で /details に遷移
+//                 context.go('/');
+//               },
+//               child: const Text('Go to Home Screen'),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
