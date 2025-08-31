@@ -5,6 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:happy_code/home_screen.dart';
 import 'package:happy_code/map_screen.dart';
 import 'package:happy_code/profile_screen.dart';
+//import 'package:happy_code/test_watch_connection.dart';
 import 'router.dart';
 
 void main() {
@@ -175,23 +176,6 @@ class LineTitles {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -211,12 +195,19 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+
+
+
+
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key, required this.title});
+  final String title;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
+
+
 
 class _MyHomePageState extends State<MyHomePage> {
   DateTime selectedDate = DateTime.now(); // 初期値を今日の日付にする
@@ -230,7 +221,7 @@ class _MyHomePageState extends State<MyHomePage> {
       lastDate: DateTime(2101),
     );
 
-    if (!mounted) return; //
+    if (!mounted) return; 
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
@@ -315,6 +306,15 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+
+  class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+
 class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
   DateTime selectedDate = DateTime.now(); // 初期値を今日の日付にする
@@ -324,32 +324,13 @@ class _MainScreenState extends State<MainScreen> {
     const MapScreen(),
     const ProfileScreen(),
   ];
-  Future<void> _selectDate() async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      locale: const Locale("ja"),
-      initialDate: selectedDate,
-      firstDate: DateTime(2025),
-      lastDate: DateTime(2101),
-    );
-
-    if (!mounted) return; //
-    if (picked != null && picked != selectedDate) {
-      setState(() {
-        selectedDate = picked;
-      });
-    }
-  }
-
-  double _currentSliderValue = 20;
-  double _currentDiscreteSliderValue = 60;
-  bool year2023 = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+       
         // title: Text(widget.title),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -367,15 +348,15 @@ class _MainScreenState extends State<MainScreen> {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                OutlinedButton(
-                  onPressed: _selectDate,
-                  child: Text(
-                    '${selectedDate.year}/${selectedDate.month}/${selectedDate.day}',
-                  ),
-                ),
-                Text(' のサウナ記録'),
-              ],
+              // children: [
+              //   OutlinedButton(
+              //     onPressed: _selectDate,
+              //     child: Text(
+              //       '${selectedDate.year}/${selectedDate.month}/${selectedDate.day}',//TODO: コメントアウト外す
+              //     ),
+              //   ),
+              //   Text(' のサウナ記録'),
+              // ],
             ),
 
             // Row(children: [
@@ -393,20 +374,20 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('心地良さ　'),
-                Slider(
-                  value: _currentSliderValue,
-                  max: 100,
-                  onChanged: (double value) {
-                    setState(() {
-                      _currentSliderValue = value;
-                    });
-                  },
-                ),
-                Text('${_currentSliderValue.toStringAsFixed(0)}％'),
-              ],
+              // mainAxisAlignment: MainAxisAlignment.center,
+              // children: [
+              //   Text('心地良さ　'),
+              //   Slider(
+              //     value: _currentSliderValue,
+              //     max: 100,
+              //     onChanged: (double value) {
+              //       setState(() {
+              //         _currentSliderValue = value;
+              //       });
+              //     },
+              //   ),
+              //   Text('${_currentSliderValue.toStringAsFixed(0)}％'),
+              // ],
             ),
             const SizedBox(
               width: 300,
@@ -428,6 +409,7 @@ class _MainScreenState extends State<MainScreen> {
     );
   }
 }
+
 
 // class HomeScreen extends StatelessWidget {
 //   const HomeScreen({super.key, required this.title});
