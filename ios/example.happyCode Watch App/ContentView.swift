@@ -22,63 +22,28 @@ struct ContentView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 12) {
-                Text(formattedTime(displayedElapsed))
-                    .font(.system(size: 34, weight: .semibold, design: .rounded))
-                    .monospacedDigit()
-                    .minimumScaleFactor(0.6)
-                    .lineLimit(1)
-                    .padding(.vertical, 6)
-
-                // 受信メッセージ表示
-                if !sessionManager.lastMessageText.isEmpty {
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("受信メッセージ").font(.caption).foregroundStyle(.secondary)
-                        Text(sessionManager.lastMessageText)
-                            .font(.footnote)
-                            .multilineTextAlignment(.leading)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                }
-
-                HStack(spacing: 10) {
-                    Button(action: toggleRun) {
-                        Label(isRunning ? "一時停止" : "開始",
-                              systemImage: isRunning ? "pause.fill" : "play.fill")
-                    }
-                    .buttonStyle(.borderedProminent)
-                    .tint(isRunning ? .orange : .green)
-
-                    Button(role: .destructive, action: reset) {
-                        Label("リセット", systemImage: "stop.fill")
-                    }
-                    .buttonStyle(.bordered)
-                    .tint(.red)
-                    .disabled(isRunning == true || (accumulated <= 0.0 && displayedElapsed <= 0.0))
-                }
-
-                // Navigate to a new page
                 NavigationLink {
-                    DetailView(elapsed: displayedElapsed)
+                    Sauna()
+                }label: {
+                    Text("サウナ")
+                }
+                
+                NavigationLink {
+                    Water()
                 } label: {
-                    Label("詳細", systemImage: "chevron.right")
+                    Text("水風呂")
                 }
-                .buttonStyle(.bordered)
-            }
-            .padding()
-            // Drive the displayed time while running
-            .onReceive(timer) { _ in
-                if isRunning, let start = startDate {
-                    displayedElapsed = accumulated + Date().timeIntervalSince(start)
-                } else {
-                    displayedElapsed = accumulated
+                
+                NavigationLink {
+                    Gaikiyoku()
+                } label: {
+                    Text("外気浴")
                 }
-            }
-            // Ensure the displayed time is correct on appear
-            .onAppear {
-                displayedElapsed = accumulated
             }
         }
+    }
+    private func startWater() {
+        
     }
 
     // MARK: - Actions
