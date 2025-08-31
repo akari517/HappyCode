@@ -175,40 +175,7 @@ class ProfileEditScreen extends StatelessWidget {
     );
   }
 
-  class EditInfoRow extends StatefulWidget {
-  final String label;
-  final String initialValue;
-  final VoidCallback? onPressed; // 任意の処理
-
-  const EditInfoRow({
-    super.key,
-    required this.label,
-    required this.initialValue,
-    this.onPressed,
-  });
-
-  @override
-  State<EditInfoRow> createState() => _EditInfoRowState();
-}
-
-class _EditInfoRowState extends State<EditInfoRow> {
-  late String value; // この行の値を保持
-
-  @override
-  void initState() {
-    super.initState();
-    value = widget.initialValue; // 初期値をセット
-  }
-
-  // 外部から値を変更したい場合の関数
-  void updateValue(String newValue) {
-    setState(() {
-      value = newValue;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget editInfoRow(String left, String right, {VoidCallback? onPressed}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Container(
@@ -222,20 +189,16 @@ class _EditInfoRowState extends State<EditInfoRow> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(widget.label, style: const TextStyle(fontSize: 16)),
+            Text(left, style: const TextStyle(fontSize: 16)),
             TextButton(
-              onPressed: () {
-                if (widget.onPressed != null) {
-                  widget.onPressed!();
-                }
-              },
+              onPressed: onPressed ?? () {}, // onPressedが未指定でもエラーにならない
               style: TextButton.styleFrom(
                 padding: EdgeInsets.zero,
                 minimumSize: const Size(50, 30),
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               ),
               child: Text(
-                value,
+                right,
                 style: const TextStyle(fontSize: 16, color: Colors.black),
               ),
             ),
