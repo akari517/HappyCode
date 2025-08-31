@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart'; // イントロダクション画面をインポート
+import 'package:flutter/material.dart';
+import 'package:happy_code/introduction_screen.dart'; // イントロダクション画面をインポート
 
 class TitleScreen extends StatelessWidget {
   const TitleScreen({super.key});
@@ -27,7 +28,12 @@ class TitleScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // ボタンを押すとチュートリアル画面へ遷移
-                Navigator.of(context).pushNamed('/introduction');
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const IntroductionPage(),
+                  ),
+                );
               },
               child: const Text('はじめる'),
             ),
