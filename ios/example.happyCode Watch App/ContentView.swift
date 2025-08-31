@@ -9,6 +9,7 @@ import SwiftUI
 import Combine
 
 struct ContentView: View {
+    @StateObject var sessionManager = WatchSessionManager()
     // MARK: - State
     @State private var isRunning = false
     @State private var startDate: Date?
@@ -27,6 +28,18 @@ struct ContentView: View {
                     .minimumScaleFactor(0.6)
                     .lineLimit(1)
                     .padding(.vertical, 6)
+
+                // 受信メッセージ表示
+                if !sessionManager.lastMessageText.isEmpty {
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("受信メッセージ").font(.caption).foregroundStyle(.secondary)
+                        Text(sessionManager.lastMessageText)
+                            .font(.footnote)
+                            .multilineTextAlignment(.leading)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                }
 
                 HStack(spacing: 10) {
                     Button(action: toggleRun) {

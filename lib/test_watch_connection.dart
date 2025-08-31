@@ -15,11 +15,28 @@ class TestWatchConnection extends StatelessWidget {
           TextButton(
             child: Text("データを送信"),
             onPressed: () async {
-              bool isReachable = await _flutterWatchOsConnectivity.getReachability();
-              print("isReachable: $isReachable");
-
-              if (isReachable) {
-                await _flutterWatchOsConnectivity.sendMessage({'0': 'hogehoge', '1': 'hogehoge', '2': 'hogehoge'});
+              try {
+                print('getReachability()呼び出し前');
+                await _flutterWatchOsConnectivity.configureAndActivateSession();
+                ActivationState _currentState = await _flutterWatchOsConnectivity.getActivateState();
+                print("getActivateState(): ${_currentState}");
+                while (_currentState != ActivationState.activated) {
+                  await Future.delayed(Duration(seconds: 1));
+                  _currentState = await _flutterWatchOsConnectivity.getActivateState();
+                  print("getActivateState(): ${_currentState}");
+                }
+                if (_currentState == ActivationState.activated) {
+                  // Continue to use the plugin
+                  await _flutterWatchOsConnectivity.sendMessage({
+                    "message": "This is a message sent from IOS app at ${DateTime.now().millisecondsSinceEpoch}",
+                  });
+                } else {
+                  // Do something in this case
+                }
+                print('getReachability()呼び出し後');
+              } catch (e, stack) {
+                print('送信時にエラー: $e');
+                print(stack);
               }
             },
           ),
