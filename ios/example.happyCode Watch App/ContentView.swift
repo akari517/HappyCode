@@ -7,7 +7,9 @@
 
 import SwiftUI
 import Combine
+import HealthKit
 
+let healthStore  = HKHealthStore()
 struct ContentView: View {
     @StateObject var sessionManager = WatchSessionManager()
     // MARK: - State

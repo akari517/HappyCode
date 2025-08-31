@@ -114,6 +114,7 @@ struct DetailView: View {
                 return
         }
         
+        // 安静時心拍数の
         guard let heartType = HKObjectType.quantityType(forIdentifier: .restingHeartRate) else {
                     await MainActor.run { authMessage = "HeartRate type unavailable." }
                     return
