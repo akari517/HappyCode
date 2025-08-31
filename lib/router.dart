@@ -7,7 +7,7 @@ final GoRouter Routerrr = GoRouter(
     GoRoute(
       path: '/',
       builder:
-          (context, state) => const MainScreen(), // BottomNavigationBar を持つ画面
+          (context, state) => MyHomePage(), // BottomNavigationBar を持つ画面
     ),
   ],
 );
