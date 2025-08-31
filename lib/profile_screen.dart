@@ -7,11 +7,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Profile'),
-        backgroundColor: Colors.blue,
-        automaticallyImplyLeading: false,
-      ),
+      appBar: AppBar(title: const Text('Profile'), backgroundColor: Colors.blue, automaticallyImplyLeading: false),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -23,23 +19,10 @@ class ProfileScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 16.0),
                 child: TextButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder:
-                            (context) =>
-                                const ProfileEditScreen(title: 'ProfileEdit'),
-                      ),
-                    );
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileEditScreen(title: 'ProfileEdit')));
                   },
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.zero,
-                    minimumSize: const Size(50, 30),
-                  ),
-                  child: const Text(
-                    'Edit Profile',
-                    style: TextStyle(fontSize: 14, color: Colors.blue),
-                  ),
+                  style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: const Size(50, 30)),
+                  child: const Text('Edit Profile', style: TextStyle(fontSize: 14, color: Colors.blue)),
                 ),
               ),
             ),
@@ -51,13 +34,14 @@ class ProfileScreen extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 60,
-                    backgroundImage: AssetImage('assets/profile.jpg'),
+                    child: Image.network(
+                      width: 100,
+                      scale: 0.8,
+                      "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhrXQEg9Qjxs6a6TuzrGnIU3vA1F4m9qy7BHzhmD2TGuW-T2vQpzGHaxzbT-GGSQVIFQ-nYoW_-u7PJCAkyqY5tuzGFnV6Y6Z_LgAdr4jqZOjn7-16tP3TjFARNMIi03OluHBJ3Oi2gBA0O/s400/food_umibudou.png",
+                    ),
                   ),
                   const SizedBox(height: 10),
-                  const Text(
-                    'sea grape',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
+                  const Text('sea grape', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 8),
                 ],
               ),
@@ -67,10 +51,7 @@ class ProfileScreen extends StatelessWidget {
             // Device Information
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 30),
-              child: Text(
-                'Device Information',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
+              child: Text('Device Information', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ),
             const SizedBox(height: 8),
             Center(
@@ -82,10 +63,7 @@ class ProfileScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8), // 角丸を追加
                 ),
                 alignment: Alignment.center,
-                child: const Text(
-                  'sea grapeのapplewatch',
-                  textAlign: TextAlign.center,
-                ),
+                child: const Text('sea grapeのapplewatch', textAlign: TextAlign.center),
               ),
             ),
             const SizedBox(height: 16),
@@ -93,21 +71,11 @@ class ProfileScreen extends StatelessWidget {
             // User Information
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 30),
-              child: Text(
-                'User Information',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
+              child: Text('User Information', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ),
             const SizedBox(height: 4),
             Center(
-              child: Column(
-                children: [
-                  infoRow('性別', '女性'),
-                  infoRow('体重', '60kg'),
-                  infoRow('身長', '150cm'),
-                  infoRow('平均心拍数', '160bpm'),
-                ],
-              ),
+              child: Column(children: [infoRow('性別', '女性'), infoRow('体重', '60kg'), infoRow('身長', '150cm'), infoRow('平均心拍数', '160bpm')]),
             ),
             const SizedBox(height: 16),
           ],
@@ -124,16 +92,10 @@ class ProfileScreen extends StatelessWidget {
         width: 300,
         height: 40,
         padding: const EdgeInsets.symmetric(horizontal: 12),
-        decoration: BoxDecoration(
-          color: Colors.grey[300],
-          borderRadius: BorderRadius.circular(8),
-        ),
+        decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(8)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(left, style: const TextStyle(fontSize: 16)),
-            Text(right, style: const TextStyle(fontSize: 16)),
-          ],
+          children: [Text(left, style: const TextStyle(fontSize: 16)), Text(right, style: const TextStyle(fontSize: 16))],
         ),
       ),
     );

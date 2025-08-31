@@ -6,18 +6,13 @@ import 'package:happy_code/profile_screen.dart';
 class ProfileEditScreen extends StatelessWidget {
   const ProfileEditScreen({super.key, required this.title});
   final String title;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue,
         automaticallyImplyLeading: false,
-
-        title: Transform.translate(
-          offset: const Offset(0, 0),
-          child: const Text('Profile'),
-        ),
+        title: Transform.translate(offset: const Offset(0, 0), child: const Text('Profile')),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -27,90 +22,62 @@ class ProfileEditScreen extends StatelessWidget {
             Align(
               alignment: Alignment.topRight,
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16.0,
-                  vertical: 0.0,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween, // 左右に配置
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  // 左右に配置
                   children: [
                     // 左上 Cancel
                     TextButton(
                       onPressed: () {
-                        Navigator.pop(context); // 前の画面に戻る
+                        Navigator.pop(context);
+                        // 前の画面に戻る
                       },
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                        minimumSize: const Size(50, 30),
-                      ),
-                      child: const Text(
-                        'Cancel',
-                        style: TextStyle(fontSize: 14, color: Colors.red),
-                      ),
+                      style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: const Size(50, 30)),
+                      child: const Text('Cancel', style: TextStyle(fontSize: 14, color: Colors.red)),
                     ),
                     // 右上 Confirm
                     TextButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ProfileScreen(),
-                          ),
-                        );
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const ProfileScreen()));
                       },
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.zero,
-                        minimumSize: const Size(50, 30),
-                      ),
-                      child: const Text(
-                        'Confirm',
-                        style: TextStyle(fontSize: 14, color: Colors.blue),
-                      ),
+                      style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: const Size(50, 30)),
+                      child: const Text('Confirm', style: TextStyle(fontSize: 14, color: Colors.blue)),
                     ),
                   ],
                 ),
               ),
             ),
             const SizedBox(height: 16),
-
-            // プロフィール画像と中央揃え文章
+            //プロフィール画像と中央揃え文章
             Center(
               child: Column(
                 children: [
                   CircleAvatar(
                     radius: 60,
-                    backgroundImage: AssetImage('assets/profile.jpg'),
+                    child: Image.network(
+                      width: 100,
+                      scale: 0.8,
+                      "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhrXQEg9Qjxs6a6TuzrGnIU3vA1F4m9qy7BHzhmD2TGuW-T2vQpzGHaxzbT-GGSQVIFQ-nYoW_-u7PJCAkyqY5tuzGFnV6Y6Z_LgAdr4jqZOjn7-16tP3TjFARNMIi03OluHBJ3Oi2gBA0O/s400/food_umibudou.png",
+                    ),
                   ),
                   const SizedBox(height: 0),
                   Row(
-                    mainAxisSize: MainAxisSize.min, // 中央揃え
+                    mainAxisSize: MainAxisSize.min,
+                    // 中央揃え
                     children: [
                       // 左の透明アイコン（バランス用）
                       IconButton(
-                        icon: const Icon(
-                          Icons.edit,
-                          size: 20,
-                          color: Colors.transparent,
-                        ),
+                        icon: const Icon(Icons.edit, size: 20, color: Colors.transparent),
                         onPressed: () {},
                         splashColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                       ),
-                      const Text(
-                        'sea grape',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      const Text('sea grape', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
                       const SizedBox(width: 4),
                       // 右の編集アイコン
                       IconButton(
-                        icon: const Icon(
-                          Icons.edit,
-                          size: 20,
-                          color: Colors.blue,
-                        ),
+                        icon: const Icon(Icons.edit, size: 20, color: Colors.blue),
                         onPressed: () {
                           // 編集ボタンを押したときの処理
                         },
@@ -122,14 +89,10 @@ class ProfileEditScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 24),
-
             // Device Information
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 30),
-              child: Text(
-                'Device Information',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
+              child: Text('Device Information', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ),
             const SizedBox(height: 8),
             Center(
@@ -138,34 +101,23 @@ class ProfileEditScreen extends StatelessWidget {
                 height: 40,
                 decoration: BoxDecoration(
                   color: Colors.grey[300],
-                  borderRadius: BorderRadius.circular(8), // 角丸を追加
+                  borderRadius: BorderRadius.circular(8),
+                  // 角丸を追加
                 ),
                 alignment: Alignment.center,
-                child: const Text(
-                  'sea grapeのapplewatch',
-                  textAlign: TextAlign.center,
-                ),
+                child: const Text('sea grapeのapplewatch', textAlign: TextAlign.center),
               ),
             ),
             const SizedBox(height: 16),
-
             // User Information
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 30),
-              child: Text(
-                'User Information',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
+              child: Text('User Information', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
             ),
             const SizedBox(height: 4),
             Center(
               child: Column(
-                children: [
-                  editInfoRow('性別', '女性'),
-                  editInfoRow('体重', '60kg'),
-                  editInfoRow('身長', '150cm'),
-                  editInfoRow('平均心拍数', '160bpm'),
-                ],
+                children: [editInfoRow('性別', '女性'), editInfoRow('体重', '60kg'), editInfoRow('身長', '150cm'), editInfoRow('平均心拍数', '160bpm')],
               ),
             ),
             const SizedBox(height: 16),
@@ -182,25 +134,20 @@ class ProfileEditScreen extends StatelessWidget {
         width: 300,
         height: 40,
         padding: const EdgeInsets.symmetric(horizontal: 12),
-        decoration: BoxDecoration(
-          color: Colors.grey[300],
-          borderRadius: BorderRadius.circular(8),
-        ),
+        decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(8)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(left, style: const TextStyle(fontSize: 16)),
             TextButton(
-              onPressed: onPressed ?? () {}, // onPressedが未指定でもエラーにならない
+              onPressed: onPressed ?? () {},
+              // onPressedが未指定でもエラーにならない
               style: TextButton.styleFrom(
                 padding: EdgeInsets.zero,
                 minimumSize: const Size(50, 30),
                 tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               ),
-              child: Text(
-                right,
-                style: const TextStyle(fontSize: 16, color: Colors.black),
-              ),
+              child: Text(right, style: const TextStyle(fontSize: 16, color: Colors.black)),
             ),
           ],
         ),
